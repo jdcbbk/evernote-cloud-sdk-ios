@@ -85,7 +85,7 @@
 
     // do for remaining resources
     for (ENResource * resource in note.resources) {
-        [writer writeResourceWithDataHash:resource.dataHash mime:resource.mimeType attributes:nil];
+        //[writer writeResourceWithDataHash:resource.dataHash mime:resource.mimeType attributes:nil];
     }
     [writer endDocument];
     if ([resourcesToAppend count]) {

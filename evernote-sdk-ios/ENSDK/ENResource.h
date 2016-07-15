@@ -90,5 +90,5 @@
  *  @return NSString that looks like <en-media width="640" height="480" type="image/jpeg" hash="f03c1c2d96bc67eda02968c8b5af9008"/>
  */
 - (NSString*) mediaTag;
-
+@property (nonatomic, strong) NSDictionary * edamAttributes;
 @end

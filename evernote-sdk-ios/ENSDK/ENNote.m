@@ -44,7 +44,6 @@
 @property (nonatomic, copy) NSString * sourceUrl;
 @property (nonatomic, copy) NSString * cachedENMLContent;
 @property (nonatomic, strong) EDAMNote * serviceNote;
-@property (nonatomic, strong) NSDictionary * edamAttributes;
 @end
 
 @implementation ENNote
@@ -53,6 +52,7 @@
     self = [super init];
     if (self) {
         _resources = [[NSMutableArray alloc] init];
+        _serviceNote.attributes.contentClass=@"com.gugu.note";
     }
     return self;
 }
@@ -67,7 +67,7 @@
         _isReminder = (note.attributes.reminderOrder != nil);
         _sourceUrl = note.attributes.sourceURL;
         _tagNames = note.tagNames;  // This is usually nil, unfortunately, on notes that come from the service.
-        
+        _serviceNote.attributes.contentClass=@"com.gugu.note";
         // Resources to ENResources
         _resources = [[NSMutableArray alloc] init];
         for (EDAMResource * serviceResource in note.resources) {

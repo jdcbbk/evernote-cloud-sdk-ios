@@ -67,6 +67,8 @@ typedef void (^ENNoteGenerateWebArchiveDataCompletionHandler)(NSData * data);
  */
 @property (nonatomic, assign) BOOL isReminder;
 
+
+@property (nonatomic, strong) NSDictionary * edamAttributes;
 /**
  *  The array of resource objects current attached to this note.
  *

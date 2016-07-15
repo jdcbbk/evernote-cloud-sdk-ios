@@ -292,6 +292,9 @@ NS_ENUM(NSInteger, SampleFunctions) {
     UIAlertAction *clipAction = [UIAlertAction actionWithTitle:@"Search" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         UITextField *keywordField = searchController.textFields[0];
         NSString *keyword = keywordField.text;
+        
+        keyword=[NSString stringWithFormat:@"contentClass:%@",@"com.gugu.*"];
+        
         NoteListResultViewController *resultVC = [[NoteListResultViewController alloc] initWithNoteSearch:[ENNoteSearch noteSearchWithSearchString: keyword] notebook:nil];
         [weakSelf.navigationController pushViewController:resultVC animated:YES];
     }];
@@ -315,11 +318,24 @@ NS_ENUM(NSInteger, SampleFunctions) {
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    // Build note with resource.
-    ENResource * resource = [[ENResource alloc] initWithImage:image];
+
+    
+    NSString *content14 = @"I can quickly markup something and send to my friends, or co workers. \nIt's so awesome";
+
+    ENNoteContent *noteContent = [ENNoteContent noteContentWithString:content14];
     ENNote * note = [[ENNote alloc] init];
     note.title = @"Photo note";
+    note.content=noteContent;
+    
+    // Build note with resource.
+    ENResource * resource = [[ENResource alloc] initWithImage:image];
+    resource.edamAttributes=@{@"attachment":@YES};
     [note addResource:resource];
+    
+    ENResource * resource1 = [[ENResource alloc] initWithData:UIImagePNGRepresentation(image) mimeType:@"application/octet-stream"];
+    resource1.edamAttributes=@{@"attachment":@NO};
+    [note addResource:resource1];
+    
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeBlack];
     [[ENSession sharedSession] uploadNote:note notebook:nil completion:^(ENNoteRef *noteRef, NSError *uploadNoteError) {
         NSString * message = nil;
@@ -363,6 +379,8 @@ NS_ENUM(NSInteger, SampleFunctions) {
 
 - (void)saveCustomizedNote {
     ENNote *noteToSave = [[ENNote alloc] init];
+
+    noteToSave.edamAttributes=@{@"contentClass":@"com.gugu.note"};
     noteToSave.title = @"Customized Note";
     NSString *content1 = @"Today I'm writing about my favorite apps on my iPhone\n";
     NSString *content2 = @"The first one is Evernote";
