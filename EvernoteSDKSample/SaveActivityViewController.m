@@ -9,6 +9,7 @@
 #import "SaveActivityViewController.h"
 #import <ENSDK/ENSDK.h>
 
+#import "ENSaveToEvernoteActivity.h"
 @interface SaveActivityViewController () <ENSaveToEvernoteActivityDelegate>
 
 @end

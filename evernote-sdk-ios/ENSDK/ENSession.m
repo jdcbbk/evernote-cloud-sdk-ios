@@ -303,7 +303,12 @@ static BOOL disableRefreshingNotebooksCacheOnLaunch;
         } else {
             self.sessionHost = ENSessionBootstrapServerBaseURLStringUS;
         }
+#if 1
+        self.sessionHost = ENSessionBootstrapServerBaseURLStringUS;
+#endif
     }
+    
+
 }
 
 - (void)authenticateWithViewController:(UIViewController *)viewController

@@ -146,8 +146,21 @@ NSString * ENOAuthAuthenticatorAuthInfoAppNotebookIsLinked = @"ENOAuthAuthentica
         // Using first profile as the preferred profile.
         EDAMBootstrapProfile * profile = [info.profiles objectAtIndex:0];
         self.profiles = info.profiles;
+        
         self.currentProfile = profile.name;
         self.host = profile.settings.serviceHost;
+        
+#if 1//ENBootstrapProfileNameInternationalOnly
+        for (EDAMBootstrapProfile *p in self.profiles) {
+            if ([ENBootstrapProfileNameInternational isEqualToString:[p name]]) {
+                self.currentProfile = p.name;
+                self.host = p.settings.serviceHost;
+                break;
+            }
+        }
+#endif
+        
+        
         // start the OAuth dance to get credentials (auth token, noteStoreUrl, etc).
         [self startOauthAuthentication];
     } failure:^(NSError * error) {
@@ -470,6 +483,10 @@ NSString * ENOAuthAuthenticatorAuthInfoAppNotebookIsLinked = @"ENOAuthAuthentica
     else {
         isSwitchAllowed = NO;
     }
+    
+#if 1
+    isSwitchAllowed = NO;
+#endif
     if(!self.isSwitchingInProgress ) {
         self.oauthViewController = [[ENOAuthViewController alloc] initWithAuthorizationURL:authorizationURL
                                                                        oauthCallbackPrefix:[self oauthCallback]
